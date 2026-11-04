@@ -1,9 +1,8 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { toast } from "react-hot-toast";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -12,74 +11,89 @@ export default function SignupPage() {
     password: "",
     username: "",
   });
-  const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
+  const buttonDisabled =
+    !user.email.trim() || !user.password || !user.username.trim();
 
-  const onSignup = async () => {
+  const onSignup = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setErrorMessage("");
     try {
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
       console.log("Signup success", response.data);
       router.push("/login");
-    } catch (error: any) {
-      console.log("Signup failed", error.message);
-
-      toast.error(error.message);
+    } catch (error: unknown) {
+      console.error("Signup failed:", error);
+      if (axios.isAxiosError<{ error?: string }>(error)) {
+        setErrorMessage(
+          error.response?.data?.error ?? "Signup failed. Please try again.",
+        );
+      } else {
+        setErrorMessage("Signup failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    if (
-      user.email.length > 0 &&
-      user.password.length > 0 &&
-      user.username.length > 0
-    ) {
-      setButtonDisabled(false);
-    } else {
-      setButtonDisabled(true);
-    }
-  }, [user]);
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1>{loading ? "Processing" : "Signup"}</h1>
-      <hr />
-      <label htmlFor="username">username</label>
-      <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-        id="username"
-        type="text"
-        value={user.username}
-        onChange={(e) => setUser({ ...user, username: e.target.value })}
-        placeholder="username"
-      />
-      <label htmlFor="email">email</label>
-      <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-        id="email"
-        type="text"
-        value={user.email}
-        onChange={(e) => setUser({ ...user, email: e.target.value })}
-        placeholder="email"
-      />
-      <label htmlFor="password">password</label>
-      <input
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
-        id="password"
-        type="password"
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
-        placeholder="password"
-      />
-      <button
-        onClick={onSignup}
-        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600"
-      >
-        {buttonDisabled ? "No signup" : "Signup"}
-      </button>
-      <Link href="/login">Visit login page</Link>
+      <form onSubmit={onSignup} className="flex w-full max-w-sm flex-col px-4">
+        <h1 className="mb-4 text-center text-2xl font-semibold">
+          {loading ? "Processing" : "Signup"}
+        </h1>
+        <label htmlFor="username">Username</label>
+        <input
+          className="mb-4 rounded-lg border border-gray-300 p-2 text-black"
+          id="username"
+          type="text"
+          autoComplete="username"
+          value={user.username}
+          onChange={(event) =>
+            setUser({ ...user, username: event.target.value })
+          }
+          required
+        />
+        <label htmlFor="email">Email</label>
+        <input
+          className="mb-4 rounded-lg border border-gray-300 p-2 text-black"
+          id="email"
+          type="email"
+          autoComplete="email"
+          value={user.email}
+          onChange={(event) => setUser({ ...user, email: event.target.value })}
+          required
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          className="mb-4 rounded-lg border border-gray-300 p-2 text-black"
+          id="password"
+          type="password"
+          autoComplete="new-password"
+          value={user.password}
+          onChange={(event) =>
+            setUser({ ...user, password: event.target.value })
+          }
+          required
+        />
+        {errorMessage && (
+          <p role="alert" className="mb-4 text-sm text-red-600">
+            {errorMessage}
+          </p>
+        )}
+        <button
+          type="submit"
+          disabled={buttonDisabled || loading}
+          className="mb-4 rounded-lg border border-gray-300 p-2 disabled:opacity-60"
+        >
+          {loading ? "Processing" : "Signup"}
+        </button>
+        <Link href="/login" className="text-center underline">
+          Visit login page
+        </Link>
+      </form>
     </div>
   );
 }

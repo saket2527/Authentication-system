@@ -13,16 +13,27 @@ export default function ProfilePage() {
       await axios.get("/api/users/logout");
       toast.success("Logout successful");
       router.push("/login");
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error(error.message);
+    } catch (error: unknown) {
+      console.error("Logout failed:", error);
+      toast.error(
+        error instanceof Error ? error.message : "Logout failed. Please try again.",
+      );
     }
   };
 
   const getUserDetails = async () => {
-    const res = await axios.get("/api/users/me");
-    console.log(res.data);
-    setData(res.data.data._id);
+    try {
+      const res = await axios.get("/api/users/me");
+      console.log(res.data);
+      setData(res.data.data._id);
+    } catch (error: unknown) {
+      console.error("Could not retrieve user details:", error);
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Could not retrieve user details.",
+      );
+    }
   };
 
   return (

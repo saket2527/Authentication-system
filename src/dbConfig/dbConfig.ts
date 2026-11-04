@@ -1,22 +1,25 @@
 import mongoose from "mongoose";
 
+const mongoUri = process.env.MONGO_URI;
+let connectionPromise: Promise<typeof mongoose> | undefined;
+
 export async function connect() {
+  if (!mongoUri) {
+    throw new Error("MONGO_URI is not configured");
+  }
+
+  if (mongoose.connection.readyState === 1) {
+    return mongoose;
+  }
+
+  if (!connectionPromise) {
+    connectionPromise = mongoose.connect(mongoUri);
+  }
+
   try {
-    mongoose.connect(process.env.MONGO_URI!);
-    const connection = mongoose.connection;
-
-    connection.on("connected", () => {
-      console.log("MongoDB connected successfully");
-    });
-
-    connection.on("error", (err) => {
-      console.log(
-        "MongoDB connection error. Please make sure MongoDB is running. " + err,
-      );
-      process.exit();
-    });
+    return await connectionPromise;
   } catch (error) {
-    console.log("Something goes wrong!");
-    console.log(error);
+    connectionPromise = undefined;
+    throw error;
   }
 }
