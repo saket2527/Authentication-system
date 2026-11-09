@@ -1,11 +1,9 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 
 export default function SignupPage() {
-  const router = useRouter();
   const [user, setUser] = React.useState({
     email: "",
     password: "",
@@ -13,6 +11,7 @@ export default function SignupPage() {
   });
   const [loading, setLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [signupComplete, setSignupComplete] = React.useState(false);
   const buttonDisabled =
     !user.email.trim() || !user.password || !user.username.trim();
 
@@ -21,9 +20,8 @@ export default function SignupPage() {
     setErrorMessage("");
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/signup", user);
-      console.log("Signup success", response.data);
-      router.push("/login");
+      await axios.post("/api/users/signup", user);
+      setSignupComplete(true);
     } catch (error: unknown) {
       console.error("Signup failed:", error);
       if (axios.isAxiosError<{ error?: string }>(error)) {
@@ -38,6 +36,18 @@ export default function SignupPage() {
     }
   };
 
+  if (signupComplete) {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center">
+        <h1 className="text-2xl font-semibold">Check your email</h1>
+        <p>We sent you a link to verify your account before logging in.</p>
+        <Link href="/login" className="underline">
+          Go to login
+        </Link>
+      </main>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <form onSubmit={onSignup} className="flex w-full max-w-sm flex-col px-4">
@@ -46,7 +56,7 @@ export default function SignupPage() {
         </h1>
         <label htmlFor="username">Username</label>
         <input
-          className="mb-4 rounded-lg border border-gray-300 p-2 text-black"
+          className="mb-4 rounded-lg border border-gray-300 p-2 text-white"
           id="username"
           type="text"
           autoComplete="username"
@@ -58,7 +68,7 @@ export default function SignupPage() {
         />
         <label htmlFor="email">Email</label>
         <input
-          className="mb-4 rounded-lg border border-gray-300 p-2 text-black"
+          className="mb-4 rounded-lg border border-gray-300 p-2 text-white"
           id="email"
           type="email"
           autoComplete="email"
@@ -68,7 +78,7 @@ export default function SignupPage() {
         />
         <label htmlFor="password">Password</label>
         <input
-          className="mb-4 rounded-lg border border-gray-300 p-2 text-black"
+          className="mb-4 rounded-lg border border-gray-300 p-2 text-white"
           id="password"
           type="password"
           autoComplete="new-password"

@@ -1,5 +1,13 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Environment
+
+Create a `.env` file in the project root with `MONGO_URI`, `TOKEN_SECRET`,
+`MAIL_USER`, `MAIL_PASS`, and `DOMAIN`. `MAIL_FROM` is optional and defaults to
+`MAIL_USER`. Email uses Mailtrap SMTP on port 2525 by default; set `SMTP_HOST`
+and `SMTP_PORT` to use a different SMTP provider. Use the credentials issued by
+that provider. Keep these values private and do not commit `.env`.
+
 ## Getting Started
 
 First, run the development server:

@@ -2,16 +2,7 @@ import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-import { createRequire } from "node:module";
-
-const require = createRequire(import.meta.url);
-const jwt = require("jsonwebtoken") as {
-  sign: (
-    payload: { id: string; username: string; email: string },
-    secret: string,
-    options: { expiresIn: "1d" },
-  ) => string;
-};
+import jwt from "jsonwebtoken";
 
 export async function POST(request: NextRequest) {
   try {
@@ -31,7 +22,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const user = await User.findOne({ email: email.trim() });
+    const user = await User.findOne({ email: email.trim().toLowerCase() });
     if (!user) {
       return NextResponse.json(
         { error: "User does not exist" },
@@ -42,6 +33,13 @@ export async function POST(request: NextRequest) {
     const validPassword = await bcryptjs.compare(password, user.password);
     if (!validPassword) {
       return NextResponse.json({ error: "Invalid password" }, { status: 400 });
+    }
+
+    if (!user.isVerified) {
+      return NextResponse.json(
+        { error: "Please verify your email before logging in" },
+        { status: 403 },
+      );
     }
 
     const tokenSecret = process.env.TOKEN_SECRET;

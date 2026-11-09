@@ -42,7 +42,7 @@ export default function LoginPage() {
         <h1 className="text-center text-2xl font-semibold">Login</h1>
         <label htmlFor="email">Email</label>
         <input
-          className="rounded-lg border border-gray-300 p-2 text-black"
+          className="rounded-lg border border-gray-300 p-2 text-white"
           id="email"
           type="email"
           autoComplete="email"
@@ -52,7 +52,7 @@ export default function LoginPage() {
         />
         <label htmlFor="password">Password</label>
         <input
-          className="rounded-lg border border-gray-300 p-2 text-black"
+          className="rounded-lg border border-gray-300 p-2 text-white"
           id="password"
           type="password"
           autoComplete="current-password"

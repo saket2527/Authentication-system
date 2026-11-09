@@ -1,0 +1,135 @@
+{
+  "planHash": "8e8129ee746420007837de8fba799c9cf955ff4a839313d192d5fca021fd6f7f",
+  "phase": "standalone",
+  "recordedAtUtc": "2026-11-09T19:46:31.5580900Z",
+  "retryCount": 1,
+  "resetBaseline": false,
+  "complete": true,
+  "result": {
+    "setupSucceeded": true,
+    "setupDurationMs": 124824,
+    "setupFailureOutput": null,
+    "assertions": [
+      {
+        "name": "lint",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\n\u003E authentication-system@0.1.0 lint\n\u003E eslint\n\n",
+        "durationMs": 20203
+      },
+      {
+        "name": "production-build",
+        "kind": "process",
+        "verificationMethod": "exit-code",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\n\u003E authentication-system@0.1.0 build\n\u003E next build\n\n\u25B2 Next.js 16.4.4 (Turbopack)\n- Environments: .env\n\u2713 Running next.config.ts took 2.4s\n- Cache Components enabled\n- Partial Prefetching enabled\n- Experiments (use with caution):\n  \u2713 agentFeedback\n\n  Creating an optimized production build ...\n\u2713 Compiled successfully in 3.2s\n  Running TypeScript ...\n  Finished TypeScript in 8.2s ...\n  Collecting page data using 3 workers ...\n  Generating static pages using 3 workers (0/14) ...\n  Generating static pages using 3 workers (3/14) \n  Generating static pages using 3 workers (6/14) \n  Generating static pages using 3 workers (10/14) \n\u2713 Generating static pages using 3 workers (14/14) in 1785ms\n  Finalizing page optimization ...\n\nRoute (app)\n\u250C \u25CB /\n\u251C \u25CB /_not-found\n\u251C \u0192 /api/users/login\n\u251C \u25CB /api/users/logout\n\u251C \u0192 /api/users/me\n\u251C \u0192 /api/users/signup\n\u251C \u0192 /api/users/verifyemail\n\u251C \u25CB /login\n\u251C \u25CB /profile\n\u251C   /profile/[id]\n\u2502 \u2514 \u25D0 /profile/[id]\n\u251C \u25CB /signup\n\u2514 \u25D0 /verifyemail\n\n\n\u0192 Proxy (Middleware)\n\n\u25CB  (Static)             prerendered as static content\n\u25D0  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content\n\u0192  (Dynamic)            server-rendered on demand\n\n",
+        "durationMs": 26347
+      },
+      {
+        "name": "tests-pass",
+        "kind": "process",
+        "verificationMethod": "test-results",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": 0,
+        "outputSample": "\n\u003E authentication-system@0.1.0 test\n\u003E vitest run\n\n\n RUN  v3.2.7 /Users/macbook/Desktop/NextJs/authentication-system\n\n \u2713 src/helpers/emailVerificationToken.test.ts (2 tests) 15ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  01:16:22\n   Duration  5.49s (transform 587ms, setup 0ms, collect 581ms, tests 15ms, environment 1ms, prepare 315ms)\n\n",
+        "durationMs": 12155,
+        "testResults": {
+          "testFramework": "vitest",
+          "runnerDetectedFrom": "package_json",
+          "testsTotal": 2,
+          "testsPassed": 2,
+          "testsFailed": 0,
+          "testsSkipped": 0,
+          "parseFailed": false
+        }
+      },
+      {
+        "name": "login-page-serves",
+        "kind": "http-probe",
+        "verificationMethod": "http-status",
+        "passed": true,
+        "timedOut": false,
+        "skipped": false,
+        "skippedReason": null,
+        "exitCode": null,
+        "outputSample": "HTTP 200\n\u003C!DOCTYPE html\u003E\u003Chtml lang=\u0022en\u0022 class=\u0022T19VSG_variable _8Li5zG_variable h-full antialiased\u0022\u003E\u003Chead\u003E\u003Cmeta charSet=\u0022utf-8\u0022/\u003E\u003Cmeta name=\u0022viewport\u0022 content=\u0022width=device-width, initial-scale=1\u0022/\u003E\u003Clink rel=\u0022stylesheet\u0022 href=\u0022/_next/static/chunks/01gpalmjb6upy.css\u0022 data-precedence=\u0022next\u0022/\u003E\u003Clink rel=\u0022preload\u0022 as=\u0022script\u0022 fetchPriority=\u0022low\u0022 href=\u0022/_next/static/chunks/3be5ypa669k_3.js\u0022/\u003E\u003Cscript src=\u0022/_next/static/chunks/44bax-4eob5k0.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/1gj5u6mwx5p0u.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/1hy9p0hfrq0w2.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/turbopack-2u1d16houkiyo.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/0wj0noag-9_fs.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/1fpu13svleb0z.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript src=\u0022/_next/static/chunks/1up8atw56tdrx.js\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cmeta name=\u0022next-size-adjust\u0022 content=\u0022\u0022/\u003E\u003Ctitle\u003ECreate Next App\u003C/title\u003E\u003Cmeta name=\u0022description\u0022 content=\u0022Generated by create next app\u0022/\u003E\u003Clink rel=\u0022icon\u0022 href=\u0022/favicon.ico?favicon.117ezoe8m31dk.ico\u0022 sizes=\u002248x48\u0022 type=\u0022image/x-icon\u0022/\u003E\u003Cscript src=\u0022/_next/static/chunks/0cz1d0mv5g_q7.js\u0022 noModule=\u0022\u0022\u003E\u003C/script\u003E\u003C/head\u003E\u003Cbody class=\u0022min-h-full flex flex-col\u0022\u003E\u003Cdiv hidden=\u0022\u0022\u003E\u003C!--$--\u003E\u003C!--/$--\u003E\u003C/div\u003E\u003C!--\u0026--\u003E\u003C!--\u0026--\u003E\u003Cmain class=\u0022flex min-h-screen flex-col items-center justify-center py-2\u0022\u003E\u003Cform class=\u0022flex w-full max-w-sm flex-col gap-3 px-4\u0022\u003E\u003Ch1 class=\u0022text-center text-2xl font-semibold\u0022\u003ELogin\u003C/h1\u003E\u003Clabel for=\u0022email\u0022\u003EEmail\u003C/label\u003E\u003Cinput class=\u0022rounded-lg border border-gray-300 p-2 text-black\u0022 id=\u0022email\u0022 type=\u0022email\u0022 autoComplete=\u0022email\u0022 required=\u0022\u0022 value=\u0022\u0022/\u003E\u003Clabel for=\u0022password\u0022\u003EPassword\u003C/label\u003E\u003Cinput class=\u0022rounded-lg border border-gray-300 p-2 text-black\u0022 id=\u0022password\u0022 type=\u0022password\u0022 autoComplete=\u0022current-password\u0022 required=\u0022\u0022 value=\u0022\u0022/\u003E\u003Cbutton type=\u0022submit\u0022 disabled=\u0022\u0022 class=\u0022rounded-lg border border-gray-300 p-2 disabled:opacity-60\u0022\u003ELogin\u003C/button\u003E\u003Ca class=\u0022text-center underline\u0022 href=\u0022/signup\u0022\u003ECreate an account\u003C/a\u003E\u003C/form\u003E\u003C/main\u003E\u003C!--$--\u003E\u003C!--/$--\u003E\u003C!--/\u0026--\u003E\u003C!--/\u0026--\u003E\u003Cscript src=\u0022/_next/static/chunks/3be5ypa669k_3.js\u0022 id=\u0022_R_\u0022 async=\u0022\u0022\u003E\u003C/script\u003E\u003Cscript\u003E(globalThis[\u0022TURBOPACK\u0022] || (globalThis[\u0022TURBOPACK\u0022] = [])).push({\u0022otherChunks\u0022:[\u0022static/chunks/3be5ypa669k_3.js\u0022,\u0022static/chunks/44bax-4eob5k0.js\u0022,\u0022static/chunks/1gj5u6mwx5p0u.js\u0022,\u0022static/chunks/1hy9p0hfrq0w2.js\u0022],\u0022runtimeModuleIds\u0022:[94553]});\u003C/script\u003E\u003Cscript\u003E(self.__next_f=self.__next_f||[]).push([0])\u003C/script\u003E\u003Cscript\u003Eself.__next_f.push([1,\u00221:\\\u0022$Sreact.fragment\\\u0022\\n2:\\\u0022/_next/static/chunks/0wj0noag-9_fs.js\\\u0022\\n3:I[39756,[\\\u0022$2\\\u0022],\\\u0022default\\\u0022]\\n4:I[37457,[\\\u0022$2\\\u0022],\\\u0022default\\\u0022]\\n9:I[47257,[\\\u0022$2\\\u0022],\\\u0022ClientPageRoot\\\u0022]\\na:\\\u0022/_next/static/chunks/1fpu13svleb0z.js\\\u0022\\nb:\\\u0022/_next/static/chunks/1up8atw56tdrx.js\\\u0022\\nc:I[94542,[\\\u0022$2\\\u0022,\\\u0022$a\\\u0022,\\\u0022$b\\\u0022],\\\u0022default\\\u0022]\\nd:I[97367,[\\\u0022$2\\\u0022],\\\u0022OutletBoundary\\\u0022]\\ne:\\\u0022$Sreact.suspense\\\u0022\\n10:\\\u0022ViewportBoundary\\\u0022\\n11:I[97367,[\\\u0022$2\\\u0022],\\\u0022$10\\\u0022]\\n13:\\\u0022MetadataBoundary\\\u0022\\n14:I[97367,[\\\u0022$2\\\u0022],\\\u0022$13\\\u0022]\\n17:I[68027,[\\\u0022$2\\\u0022],\\\u0022default\\\u0022,1]\\n:HL[\\\u0022/_next/static/chunks/01gpalmjb6upy.css\\\u0022,\\\u0022style\\\u0022]\\n:HL[\\\u0022/_next/static/media/07a39a8a4660cc7c-s.p.0r6juujl39pe6.woff2\\\u0022,\\\u0022font\\\u0022,{\\\u0022crossOrigin\\\u0022:\\\u0022\\\u0022,\\\u0022type\\\u0022:\\\u0022font/woff2\\\u0022}]\\n:HL[\\\u0022/_next/static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2\\\u0022,\\\u0022font\\\u0022,{\\\u0022crossOrigin\\\u0022:\\\u0022\\\u0022,\\\u0022type\\\u0022:\\\u0022font/woff2\\\u0022}]\\n5:X\\n7:X\\n8:[[\\\u0022children\\\u0022,{\\\u0022s\\\u0022:\\\u0022__PAGE__\\\u0022,\\\u0022h\\\u0022:514,\\\u0022d\\\u0022:{\\\u0022r\\\u0022:[\\\u0022$\\\u0022,\\\u0022$1\\\u0022,\\\u0022c\\\u0022,{\\\u0022children\\\u0022:[[\\\u0022$\\\u0022,\\\u0022$L9\\\u0022,null,{\\\u0022Component\\\u0022:\\\u0022$c\\\u0022,\\\u0022serverProvidedParams\\\u0022:null}],[[\\\u0022$\\\u0022,\\\u0022script\\\u0022,\\\u0022script-0\\\u0022,{\\\u0022src\\\u0022:\\\u0022/_next/static/chunks/1fpu13svleb0z.js\\\u0022,\\\u0022async\\\u0022:true,\\\u0022nonce\\\u0022:\\\u0022$undefined\\\u0022}],[\\\u0022$\\\u0022,\\\u0022script\\\u0022,\\\u0022script-1\\\u0022,{\\\u0022src\\\u0022:\\\u0022/_next/static/chunks/1up8atw56tdrx.js\\\u0022,\\\u0022async\\\u0022:true,\\\u0022nonce\\\u0022:\\\u0022$undefined\\\u0022}]],[\\\u0022$\\\u0022,\\\u0022$Ld\\\u0022,null,{\\\u0022children\\\u0022:[\\\u0022$\\\u0022,\\\u0022$e\\\u0022,null,{\\\u0022name\\\u0022:\\\u0022Next.MetadataOutlet\\\u0022,\\\u0022children\\\u0022:\\\u0022$@f\\\u0022}]}]]}],\\\u0022p\\\u0022:true,\\\u0022v\\\u0022:\\\u0022$7\\\u0022}}]]\\n6:[[\\\u0022children\\\u0022,{\\\u0022s\\\u0022:\\\u0022login\\\u0022,\\\u0022h\\\u0022:514,\\\u0022d\\\u0022:{\\\u0022r\\\u0022:[\\\u0022$\\\u0022,\\\u0022$1\\\u0022,\\\u0022c\\\u0022,{\\\u0022children\\\u0022:[null,[\\\u0022$\\\u0022,\\\u0022$L3\\\u0022,null,{\\\u0022parallelRouterKey\\\u0022:\\\u0022children\\\u0022,\\\u0022error\\\u0022:\\\u0022$undefined\\\u0022,\\\u0022errorStyles\\\u0022:\n\u2026[truncated]",
+        "durationMs": 3141
+      }
+    ],
+    "executions": [
+      {
+        "source": "setup[0]",
+        "resolvedExecutable": "/usr/local/bin/npm",
+        "args": [
+          "ci"
+        ],
+        "cwd": "/Users/macbook/Desktop/NextJs/authentication-system",
+        "env": {},
+        "prependPath": [],
+        "platform": "darwin"
+      },
+      {
+        "source": "lint",
+        "resolvedExecutable": "/usr/local/bin/npm",
+        "args": [
+          "run",
+          "lint"
+        ],
+        "cwd": "/Users/macbook/Desktop/NextJs/authentication-system",
+        "env": {},
+        "prependPath": [],
+        "platform": "darwin"
+      },
+      {
+        "source": "production-build",
+        "resolvedExecutable": "/usr/local/bin/npm",
+        "args": [
+          "run",
+          "build"
+        ],
+        "cwd": "/Users/macbook/Desktop/NextJs/authentication-system",
+        "env": {},
+        "prependPath": [],
+        "platform": "darwin"
+      },
+      {
+        "source": "tests-pass",
+        "resolvedExecutable": "/usr/local/bin/npm",
+        "args": [
+          "test"
+        ],
+        "cwd": "/Users/macbook/Desktop/NextJs/authentication-system",
+        "env": {},
+        "prependPath": [],
+        "platform": "darwin"
+      },
+      {
+        "source": "login-page-serves",
+        "resolvedExecutable": "/usr/local/bin/npm",
+        "args": [
+          "run",
+          "start",
+          "--",
+          "--port",
+          "3317"
+        ],
+        "cwd": "/Users/macbook/Desktop/NextJs/authentication-system",
+        "env": {},
+        "prependPath": [],
+        "platform": "darwin"
+      }
+    ]
+  }
+}

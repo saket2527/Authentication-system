@@ -1,4 +1,24 @@
-export default async function UserProfile({
+import { Suspense } from "react";
+
+type UserProfileProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default function UserProfile(props: UserProfileProps) {
+  return (
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center">
+          <p role="status">Loading profile…</p>
+        </main>
+      }
+    >
+      <ProfileContent {...props} />
+    </Suspense>
+  );
+}
+
+async function ProfileContent({
   params,
 }: {
   params: Promise<{ id: string }>;

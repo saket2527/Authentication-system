@@ -2,7 +2,7 @@ import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
-//import { sendEmail } from "@/helpers/mailer";
+import { sendEmail } from "@/helpers/mailer";
 
 export async function POST(request: NextRequest) {
   try {
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     }
 
     const normalizedUsername = username.trim();
-    const normalizedEmail = email.trim();
+    const normalizedEmail = email.trim().toLowerCase();
     const user = await User.findOne({
       $or: [{ email: normalizedEmail }, { username: normalizedUsername }],
     });
@@ -47,13 +47,43 @@ export async function POST(request: NextRequest) {
     });
 
     await newUser.save();
+    try {
+      await sendEmail({
+        email: normalizedEmail,
+        userId: newUser._id.toString(),
+      });
+    } catch (error: unknown) {
+      await newUser.deleteOne();
+      console.error("Signup verification email delivery failed:", error);
+      return NextResponse.json(
+        {
+          error:
+            "We couldn't send the verification email. Check your SMTP settings and try again.",
+        },
+        { status: 503 },
+      );
+    }
 
-    return NextResponse.json({
-      message: "User created successfully",
-      success: true,
-    });
+    return NextResponse.json(
+      {
+        message: "Account created. Check your email to verify your account.",
+        success: true,
+      },
+      { status: 201 },
+    );
   } catch (error: unknown) {
     console.error("Signup failed:", error);
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "code" in error &&
+      error.code === 11000
+    ) {
+      return NextResponse.json(
+        { error: "Email or username is already in use" },
+        { status: 409 },
+      );
+    }
     return NextResponse.json(
       {
         error: "Signup failed. Please try again.",
